@@ -6,9 +6,9 @@ const SearchLocationStyle = styled.div`
   margin: 20px 0;
   text-align: center;
 
-  input {
+  select {
     padding: 8px;
-    width: 200px;
+    width: 220px;
     border: 1px solid #ccc;
     border-radius: 8px;
     margin-right: 8px;
@@ -28,29 +28,28 @@ interface SearchLocationProps {
 }
 
 export const SearchLocation = ({ onSelectLocation }: SearchLocationProps) => {
-  const [query, setQuery] = useState('');
+  const locationEntries = Object.entries(LOCATION_MAP);
+  const [selectedKey, setSelectedKey] = useState(locationEntries[0][0]);
 
   const handleSearch = () => {
-    const foundEntry = Object.entries(LOCATION_MAP).find(([_, value]) =>
-      value.name.includes(query.trim())
-    );
-
-    if (foundEntry) {
-      const [, location] = foundEntry;
+    const location = LOCATION_MAP[selectedKey];
+    if (location) {
       onSelectLocation(location.lat, location.lon, location.name);
-    } else {
-      alert('해당 지역을 찾을 수 없습니다.');
     }
   };
 
   return (
     <SearchLocationStyle>
-      <input
-        type='text'
-        placeholder='도/시 이름 입력 (예: 서울, 경기)'
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
+      <select
+        value={selectedKey}
+        onChange={(e) => setSelectedKey(e.target.value)}
+      >
+        {locationEntries.map(([key, value]) => (
+          <option key={key} value={key}>
+            {value.name}
+          </option>
+        ))}
+      </select>
       <button onClick={handleSearch}>검색</button>
     </SearchLocationStyle>
   );
