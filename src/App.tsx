@@ -17,6 +17,26 @@ const Container = styled.div`
   padding: 20px;
   max-width: 900px;
   margin: auto;
+
+  .title {
+    text-align: center;
+  }
+
+  .currentWeather {
+    background-color: white;
+    padding: 8px;
+    margin: 16px auto;
+    width: 280px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    font-size: 20px;
+  }
+  .search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
 `;
 
 function App() {
@@ -35,16 +55,19 @@ function App() {
     <>
       <GlobalStyle />
       <Container>
-        {currentWeather && (
-          <CurrentWeather data={currentWeather} regionName={regionName} />
-        )}
-        <CurrentLocationButton onClick={updateLocationByCurrent} />
-        {airQuality && <AirQuality aqi={airQuality.list[0].main.aqi} />}
-        <SearchLocation
-          onSelectLocation={(lat, lon, name) => {
-            setManualLocation(lat, lon, name);
-          }}
-        />
+        <h2 className='title'>{regionName} 현재 날씨</h2>
+        <div className='currentWeather'>
+          {currentWeather && <CurrentWeather data={currentWeather} />}
+          {airQuality && <AirQuality aqi={airQuality.list[0].main.aqi} />}
+        </div>
+        <div className='search'>
+          <SearchLocation
+            onSelectLocation={(lat, lon, name) => {
+              setManualLocation(lat, lon, name);
+            }}
+          />
+          <CurrentLocationButton onClick={updateLocationByCurrent} />
+        </div>
         {forecast && <WeatherList list={forecast} />}
       </Container>
     </>
