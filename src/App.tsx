@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import {
   useCurrentWeather,
   useForecast,
   useAirQuality,
-} from './hooks/useWeather';
-import { CurrentWeather } from './components/Weather/CurrentWeather';
-import { AirQuality } from './components/Weather/AirQuality';
-import { SearchLocation } from './components/Location/SearchLocation';
-import { CurrentLocationButton } from './components/Location/CurrentLocationButton';
-import { GlobalStyle } from './styles/globalStyle';
-import styled from 'styled-components';
-import { useLocation } from './hooks/useLocation';
-import { WeatherList } from './components/Weather/WeatherList';
+} from "./hooks/useWeather";
+import { CurrentWeather } from "./components/Weather/CurrentWeather";
+import { AirQuality } from "./components/Weather/AirQuality";
+import { SearchLocation } from "./components/Location/SearchLocation";
+import { CurrentLocationButton } from "./components/Location/CurrentLocationButton";
+import { GlobalStyle } from "./styles/globalStyle";
+import styled from "styled-components";
+import { useLocation } from "./hooks/useLocation";
+import { WeatherList } from "./components/Weather/WeatherList";
 
 const Container = styled.div`
   padding: 20px;
@@ -55,12 +55,12 @@ function App() {
     <>
       <GlobalStyle />
       <Container>
-        <h2 className='title'>{regionName} 현재 날씨</h2>
-        <div className='currentWeather'>
+        <h2 className="title">{regionName.replace(/-si|-gu|-dong|-do|-gun/gi, '')} 현재 날씨</h2>
+        <div className="currentWeather">
           {currentWeather && <CurrentWeather data={currentWeather} />}
           {airQuality && <AirQuality aqi={airQuality.list[0].main.aqi} />}
         </div>
-        <div className='search'>
+        <div className="search">
           <SearchLocation
             onSelectLocation={(lat, lon, name) => {
               setManualLocation(lat, lon, name);

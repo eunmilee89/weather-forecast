@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY!;
-const BASE_URL = 'https://api.openweathermap.org';
+const BASE_URL = "https://api.openweathermap.org";
 
 export const fetchCurrentWeather = (lat: number, lon: number) =>
   axios.get(`${BASE_URL}/data/2.5/weather`, {
@@ -9,8 +9,8 @@ export const fetchCurrentWeather = (lat: number, lon: number) =>
       lat,
       lon,
       appid: API_KEY,
-      units: 'metric',
-      lang: 'kr',
+      units: "metric",
+      lang: "kr",
     },
   });
 
@@ -19,9 +19,9 @@ export const fetchForecast = (lat: number, lon: number) =>
     params: {
       lat,
       lon,
-      units: 'metric',
-      lang: 'kr',
-      exclude: 'minutely,hourly,alerts',
+      units: "metric",
+      lang: "kr",
+      exclude: "minutely,hourly,alerts",
       appid: API_KEY,
     },
   });
@@ -44,3 +44,14 @@ export const fetchRegionName = (lat: number, lon: number) =>
       appid: API_KEY,
     },
   });
+
+export const fetchGeoLocation = async (city: string) => {
+  const { data } = await axios.get(`${BASE_URL}/geo/1.0/direct`, {
+    params: {
+      q: city,
+      limit: 1,
+      appid: API_KEY,
+    },
+  });
+  return data[0];
+};

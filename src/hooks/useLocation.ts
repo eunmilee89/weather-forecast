@@ -6,26 +6,26 @@ export const useLocation = () => {
   const [lat, setLat] = useState(37.5665);
   const [lon, setLon] = useState(126.978);
   const [regionName, setRegionName] = useState('서울');
+  const [isCurrentLocation, setIsCurrentLocation] = useState(true); // ✅ 현재 위치 여부
 
   const updateLocationByCurrent = async () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         try {
-          console.log('position >>>', position);
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
 
           const response = await fetchRegionName(latitude, longitude);
-          console.log('response >>>', response);
           const cityEnglish = response.data[0]?.name;
 
-          if (cityEnglish && LOCATION_MAP[cityEnglish]) {
-            const location = LOCATION_MAP[cityEnglish];
-            setLat(location.lat);
-            setLon(location.lon);
-            setRegionName(location.name);
+          if (cityEnglish) {
+            // 현재 위치일 때는 그대로 보여줌
+            setLat(latitude);
+            setLon(longitude);
+            setRegionName(cityEnglish); // 👉 한글 매핑 없이 OpenWeather 이름 사용
+            setIsCurrentLocation(true); // ✅ 현재 위치로 표시
           } else {
-            console.error('❌ 지역 이름 매칭 실패');
+            console.error('❌ 지역 이름 못 가져옴');
           }
         } catch (error) {
           console.error('❌ 현재 위치 가져오기 실패:', error);
@@ -37,8 +37,16 @@ export const useLocation = () => {
   const setManualLocation = (lat: number, lon: number, name: string) => {
     setLat(lat);
     setLon(lon);
-    setRegionName(name);
+    setRegionName(name); // LOCATION_MAP.name 값
+    setIsCurrentLocation(false); // ✅ 수동 검색
   };
 
-  return { lat, lon, regionName, updateLocationByCurrent, setManualLocation };
+  return {
+    lat,
+    lon,
+    regionName,
+    isCurrentLocation, // ✅ 같이 반환
+    updateLocationByCurrent,
+    setManualLocation,
+  };
 };
