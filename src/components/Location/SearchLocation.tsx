@@ -7,8 +7,8 @@ const SearchLocationStyle = styled.div`
   text-align: center;
 
   select {
-    padding: 8px;
-    width: 220px;
+    padding: 9px;
+    width: 200px;
     border: 1px solid #ccc;
     border-radius: 8px;
     margin-right: 8px;

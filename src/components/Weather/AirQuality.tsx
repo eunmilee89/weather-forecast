@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 const AirQualityStyle = styled.div`
   text-align: center;
-  margin-top: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+  font-size: 14px;
 `;
 
 interface AirQualityProps {
@@ -29,6 +29,6 @@ const getAQIDescription = (aqi: number) => {
 
 export const AirQuality = ({ aqi }: AirQualityProps) => (
   <AirQualityStyle>
-    <p>미세먼지 상태: {getAQIDescription(aqi)}</p>
+    <p>미세먼지 상태 : {getAQIDescription(aqi)}</p>
   </AirQualityStyle>
 );

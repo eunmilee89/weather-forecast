@@ -6,6 +6,7 @@ const WeatherListStyle = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 16px;
+  margin-top: 16px;
 
   .card {
     background: white;
