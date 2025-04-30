@@ -8,8 +8,6 @@ const Button = styled.button`
   border-radius: 8px;
   margin: 8px;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
 `;
 
 interface CurrentLocationButtonProps {
@@ -19,5 +17,5 @@ interface CurrentLocationButtonProps {
 export const CurrentLocationButton = ({
   onClick,
 }: CurrentLocationButtonProps) => {
-  return <Button onClick={onClick}>📍 현재 위치로</Button>;
+  return <Button onClick={onClick}>현재 위치로</Button>;
 };
