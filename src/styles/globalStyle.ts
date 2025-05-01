@@ -12,6 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     background-color: #f5f5f5;
     color: #333;
     line-height: 1.6;
+    min-width: 320px;
   }
 
   button {
